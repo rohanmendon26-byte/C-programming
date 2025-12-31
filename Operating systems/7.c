@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<stdlib.h>
 int fr[3];
 
 void display()
@@ -18,7 +17,9 @@ int main()
     int page[12]={2,3,2,1,5,2,4,5,3,2,5,2};
 
     for(i=0;i<frsize;i++)
+    {
         fr[i]=-1;
+    }
 
     for(j=0;j<12;j++)
     {
@@ -57,5 +58,5 @@ int main()
         }
         display();
     }
-    printf("\n Number of pages fault=%d\n",pf);
+   printf("\nNumber of pages fault:%d\n",pf);
 }

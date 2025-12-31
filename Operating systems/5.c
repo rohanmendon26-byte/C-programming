@@ -1,5 +1,8 @@
 #include<stdio.h>
+#include<stdlib.h>
+
 int i,j;
+
 int isSafe(int processes,int resources,int allocated[][resources],int max[][resources],int available[])
 {
     int need[processes][resources];
@@ -54,21 +57,21 @@ int isSafe(int processes,int resources,int allocated[][resources],int max[][reso
             break;
         }
     }
-
-    if(!finish[i])
+    
+    for(i=0;i<processes;i++)
     {
-        for(i=0;i<processes;i++)
-        {
-            return 0;
+            if(!finish[i])
+            {
+                return 0;
+            }
         }
-    }
-    return 1;
+        return 1;
 }
 
 int main()
 {
     int processes,resources;
-    printf("\nEnter the number of processes:\n");
+    printf("\nEnter the processes:\n");
     scanf("%d",&processes);
     printf("\nEnter the number of resources:\n");
     scanf("%d",&resources);
@@ -93,20 +96,21 @@ int main()
             scanf("%d",&max[i][j]);
         }
     }
-
     printf("\nEnter the available resource matrix:\n");
-    for(i=0;i<resources;i++)
-    {
-        scanf("%d",&allocated[i]);
-    }
+        for(j=0;j<resources;j++)
+        {
+            scanf("%d",&available[j]);
+        }
 
     if(isSafe(processes,resources,allocated,max,available))
     {
-        printf("\nThe system is in a safe state\n");
+        printf("\nSystem is in safe state\n");
     }
+
     else
     {
-
-        printf("\nThe system is not in a safe state\n");
+        printf("\nSystem is not in a safe state\n");
     }
 }
+    
+
