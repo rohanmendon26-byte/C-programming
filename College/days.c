@@ -1,67 +1,68 @@
 #include<stdio.h>
 #include<stdlib.h>
 #define MAX_DAYS 7
+
 struct day
 {
     char *dayname;
     int date;
-    char *activitydescription;
+    char *activitydescrription;
 };
 
 void create(struct day *calender)
 {
-    for(int i=0;i<MAX_DAYS;i++)
+    int i;
+    for(i=0;i<MAX_DAYS;i++)
     {
-        calender[i].dayname=(char *)malloc(MAX_DAYS*sizeof(char));
-        calender[i].activitydescription=(char *)malloc(MAX_DAYS*sizeof(char));
+        calender[i].dayname=(char *)malloc(20*sizeof(char));
+        calender[i].activitydescrription=(char *)malloc(100*sizeof(char));
     }
 }
 
 void read(struct day *calender)
 {
     int i;
-    printf("Activity details report:\n");
+    printf("\nWeek activity details report\n");
     for(i=0;i<MAX_DAYS;i++)
     {
-        printf("Details for day %d \n",i+1);
-        printf("Enter the dayname:\n");
+        printf("\nDetails for day %d:\n",i+1);
+        printf("\nEnter the dayname:\n");
         scanf("%s",calender[i].dayname);
-        printf("Enter the date:\n");
+        printf("\nEnter the date:\n");
         scanf("%d",&calender[i].date);
-        getchar();
-        printf("Enter the activity description:\n");
-        scanf("%s",calender[i].activitydescription);
+        printf("\nEnter the activity description:\n");
+        scanf(" %[^\n]",calender[i].activitydescrription);
     }
 }
 
 void display(struct day *calender)
 {
     int i;
-    printf("Week activity details report\n");
-    printf("%-10s %-10s %-10s\n","Day","Date","ActivityDescription");
+    printf("\n %-10s %-10s %-30s\n","Day","Date","ActivityDescription");
     for(i=0;i<MAX_DAYS;i++)
     {
-        printf("%-10s %-10d %30s\n",calender[i].dayname,calender[i].date,calender[i].activitydescription);
+        printf("\n %-10s %-10d %-30s",calender[i].dayname,calender[i].date,calender[i].activitydescrription);
     }
 }
+
 
 void freememory(struct day *calender)
 {
     int i;
     for(i=0;i<MAX_DAYS;i++)
     {
-    free(calender[i].dayname);
-    free(calender[i].activitydescription);
+        free(calender[i].dayname);
+        free(calender[i].activitydescrription);
     }
 }
 
-
 int main()
 {
-    struct day *calender=(struct day *)malloc(MAX_DAYS*sizeof(struct day));
+    struct day *calender=(struct day *)malloc(sizeof(struct day)*MAX_DAYS);
     if(calender==NULL)
     {
-        printf("memory allocation failed\n");
+        printf("\nMemory is not available\n");
+        return 1;
     }
     create(calender);
     read(calender);
@@ -69,4 +70,3 @@ int main()
     freememory(calender);
     free(calender);
 }
-

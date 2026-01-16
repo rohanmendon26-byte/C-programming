@@ -1,13 +1,15 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-struct node{
+struct node
+{
     char ssn[25],name[25],dept[25],desig[25];
     int sal;
     long int phone;
     struct node *rlink;
     struct node *llink;
 };
+
 
 typedef struct node *NODE;
 NODE first=NULL;
@@ -19,10 +21,10 @@ NODE create()
     enode=(struct node *)malloc(sizeof(struct node));
     if(enode==NULL)
     {
-        printf("\nRunning out of memory\n");
+        printf("\nMemory is not available");
         exit(0);
     }
-    printf("\nEnter the ssn,name,dept,designation,sal and phone\n");
+    printf("\nEnter the ssn,name,dept,desig,sal and phone:");
     scanf("%s %s %s %s %d %ld",enode->ssn,enode->name,enode->dept,enode->desig,&enode->sal,&enode->phone);
     enode->rlink=NULL;
     enode->llink=NULL;
@@ -34,12 +36,14 @@ NODE insertfront()
 {
     NODE temp;
     temp=create();
+
     if(first==NULL)
     {
         return temp;
     }
+
     temp->rlink=first;
-    temp->llink=NULL;
+    first->llink=temp;
     return temp;
 }
 
@@ -48,35 +52,38 @@ NODE deletefront()
     NODE temp;
     if(first==NULL)
     {
-        printf("\nEmpty\n");
+        printf("\nLinked list is empty");
         return NULL;
     }
     if(first->rlink==NULL)
     {
-        printf("\n The student with ssn %s is deleted \n",first->ssn);
-        count--;
+        printf("\nThe student node with ssn %s is deleted",first->ssn);
         free(first);
+        count--;
         return NULL;
     }
+
     temp=first;
     first=first->rlink;
+    temp->rlink=NULL;
     first->llink=NULL;
-    printf("\n The student with ssn %s is deleted \n",first->ssn);
-    count--;
+    printf("\nThe student with ssn %s is deleted",temp->ssn);
     free(temp);
+    count--;
     return first;
-
 }
+
 
 NODE insertend()
 {
     NODE temp,cur;
     temp=create();
+    
     if(first==NULL)
     {
-        printf("\nEmpty\n");
         return temp;
     }
+
     cur=first;
     while(cur->rlink!=NULL)
     {
@@ -89,19 +96,20 @@ NODE insertend()
 
 NODE deleteend()
 {
-    NODE cur,prev;
-    if(first==NULL)
+    NODE prev,cur;
+     if(first==NULL)
     {
-        printf("\nEmpty\n");
+        printf("\nLinked list is empty");
         return NULL;
     }
     if(first->rlink==NULL)
     {
-        printf("\n The student with ssn %s is deleted \n",first->ssn);
-        count--;
+        printf("\nThe student node with ssn %s is deleted",first->ssn);
         free(first);
+        count--;
         return NULL;
     }
+
     prev=NULL;
     cur=first;
     while(cur->rlink!=NULL)
@@ -110,8 +118,9 @@ NODE deleteend()
         cur=cur->rlink;
     }
     cur->llink=NULL;
-    printf("\nThe student with ssn %s is deleted\n",cur->ssn);
+    printf("\nThe student nodes with ssn %s is deleted",cur->ssn);
     prev->rlink=NULL;
+    free(cur);
     count--;
     return first;
 }
@@ -120,34 +129,37 @@ void display()
 {
     NODE cur;
     int num=1;
+     
     if(first==NULL)
     {
-        printf("\nNo contents to display\n");
+        printf("\nNo items to display");
         return;
     }
+
+    printf("\ncontents in DLL are:");
     cur=first;
     while(cur!=NULL)
     {
-        printf("\n|%d| ||SSN:%s|| ||NAME:%s|| ||DEPT:%s|| ||DESIG:%s|| ||SAL:%d|| ||PHONE:%ld||\n",num,cur->ssn,cur->name,cur->dept,cur->desig,cur->sal,cur->phone);
+        printf("\n||%d||ssn:%s|name:%s|dept:%s|desig:%s|sal:%d|phone:%ld|",num,cur->ssn,cur->name,cur->dept,cur->desig,cur->sal,cur->phone);
         num++;
         cur=cur->rlink;
     }
-    printf("\nThe total number of students are: %d\n",count);
+    printf("\nThe total nodes:%d",count);
 }
 
-NODE deqdemo()
+void deqdemo()
 {
     int ch;
     while(1)
     {
-        printf("\nDouble ended queue operations\n");
-        printf("1.Insert queue front\n2.delete queue front\n3.display status\n4.Exit\n");
-        printf("\nEnter the choice\n");
+        printf("\n~~Double ended queue operation~~");
+        printf("\n1.insertQueueFront\n2.DeleteQueueFront\n3.InsertQueueEnd\n4.DeleteQueueEnd\n5.display\n6.exit");
+        printf("\nEnter your choice:");
         scanf("%d",&ch);
         switch(ch)
         {
             case 1:
-               first=insertend();
+               first=insertfront();
                break;
 
             case 2:
@@ -155,62 +167,70 @@ NODE deqdemo()
                break;
 
             case 3:
-               display();
+               first=insertend();
                break;
 
             case 4:
+               first=deleteend();
+               break;
+
+            case 5:
+               display();
+               break;
+
+            case 6:
+               return;
+        }
+    }
+    return;
+}
+
+void main()
+{
+    int ch,i,n;
+    while(1)
+    {
+        printf("\n~~MENU~~");
+        printf("\n1.Create a dll of student nodes\n2.insertQueueFront\n3.DeleteQueueFront\n4.InsertQueueEnd\n5.DeleteQueueEnd\n6.display\n7.deq operation\n8.exit");
+        printf("\nEnter your choice:");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+               printf("\nEnter the number of students:");
+               scanf("%d",&n);
+               for(i=1;i<=n;i++)
+               {
+                  first=insertend();
+               }
+               break;
+
+            case 2:
+               first=insertfront();
+               break;
+
+            case 3:
+               first=deletefront();
+               break;
+
+            case 4:
+               first=insertend();
+               break;
+
+            case 5:
+               first=deleteend();
+               break;
+
+            case 6:
+               display();
+               break;
+
+            case 7:
+               deqdemo();
+               break;
+
+            case 8:
                exit(0);
         }
     }
-}
-
-int main()
-{
-    int ch,i,n;
-    while(1){
-    printf("\n~~MENU~~\n");
-    printf("\n1.Create DLL of Student nodes\n2.display\n3.Insert at front\n4.delete at front\n5.insert at end\n6.delete at end\n7.Double ended queue operation:\n8.EXIT");
-    printf("\nEnter your choice\n");
-    scanf("%d",&ch);
-    switch(ch)
-    {
-        case 1:
-           printf("\nEnter the number of student nodes:\n");
-           scanf("%d",&n);
-           for(i=1;i<=n;i++)
-           {
-              first=insertend();
-           }
-           break;
-
-        case 2:
-           display();
-           break;
-
-        case 3:
-           first=insertfront();
-           break;
-
-        case 4:
-           first=deletefront();
-           break;
-
-        case 5:
-           first=insertend();
-           break;
-
-        case 6:
-           first=deleteend();
-           break;
-
-        case 7:
-           deqdemo();
-           break;
-
-        case 8:
-           exit(0);
-    }
-}
-
-
 }

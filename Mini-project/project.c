@@ -13,7 +13,7 @@ struct Job {
 struct Job heap[MAX];
 int size = 0;
 
-/* Function to swap two jobs */
+/* Swap two jobs */
 void swap(struct Job *a, struct Job *b) {
     struct Job temp = *a;
     *a = *b;
@@ -22,7 +22,8 @@ void swap(struct Job *a, struct Job *b) {
 
 /* Heapify Up */
 void heapifyUp(int index) {
-    while (index > 0 && heap[(index - 1) / 2].priority < heap[index].priority) {
+    while (index > 0 &&
+           heap[(index - 1) / 2].priority < heap[index].priority) {
         swap(&heap[(index - 1) / 2], &heap[index]);
         index = (index - 1) / 2;
     }
@@ -46,7 +47,16 @@ void heapifyDown(int index) {
     }
 }
 
-/* Insert a Job */
+/* Check if Job ID already exists */
+int isJobIdExists(int id) {
+    for (int i = 0; i < size; i++) {
+        if (heap[i].jobId == id)
+            return 1;   // Exists
+    }
+    return 0;           // Unique
+}
+
+/* Insert Job */
 void insertJob() {
     if (size == MAX) {
         printf("\nQueue Overflow! Cannot insert more jobs.\n");
@@ -54,8 +64,14 @@ void insertJob() {
     }
 
     struct Job newJob;
+
     printf("\nEnter Job ID: ");
     scanf("%d", &newJob.jobId);
+
+    if (isJobIdExists(newJob.jobId)) {
+        printf("\nJob ID already exists! Please enter a unique Job ID.\n");
+        return;
+    }
 
     printf("Enter Job Name: ");
     scanf("%s", newJob.jobName);
@@ -94,21 +110,24 @@ void displayJobs() {
         return;
     }
 
-    printf("\nScheduled Jobs (Priority Order):\n");
+    printf("\nScheduled Jobs:\n");
     printf("ID\tName\t\tPriority\n");
     printf("---------------------------------\n");
 
     for (int i = 0; i < size; i++) {
-        printf("%d\t%s\t\t%d\n", heap[i].jobId, heap[i].jobName, heap[i].priority);
+        printf("%d\t%s\t\t%d\n",
+               heap[i].jobId,
+               heap[i].jobName,
+               heap[i].priority);
     }
 }
 
-/* Main Menu */
+/* Main */
 int main() {
     int choice;
 
     do {
-        printf("\n\n==== JOB SCHEDULING SYSTEM(B-SECTION SMVITM) ====");
+        printf("\n\n==== JOB SCHEDULING SYSTEM (B-SECTION SMVITM) ====");
         printf("\n1. Add Job");
         printf("\n2. Execute Highest Priority Job");
         printf("\n3. Display All Jobs");

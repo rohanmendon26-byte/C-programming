@@ -1,6 +1,7 @@
 #include<stdio.h>
-char infix[30],postfix[30],stack[30];
+#include<stdlib.h>
 int top=-1;
+char infix[30],postfix[30],stack[30];
 
 void push(char item)
 {
@@ -22,29 +23,29 @@ int prec(char symb)
     switch(symb)
     {
         case '#':
-        p=-1;
-        break;
+            p=-1;
+            break;
 
         case '(':
         case ')':
-        p=0;
-        break;
+            p=0;
+            break;
 
         case '+':
         case '-':
-        p=1;
-        break;
+            p=1;
+            break;
 
         case '*':
-        case '/':
         case '%':
-        p=2;
-        break;
+        case '/':
+            p=2;
+            break;
 
+        case '^':
         case '$':
-        case'^':
-        p=3;
-        break;
+            p=3;
+            break;
     }
     return p;
 }
@@ -60,11 +61,12 @@ void evaluate()
         switch(symb)
         {
             case '(':
-            push(symb);
-            break;
-
+                push(symb);
+                break;
+            
             case ')':
-            temp=pop();
+                temp=pop();
+            
             while(temp!='(')
             {
                 postfix[j]=temp;
@@ -90,12 +92,10 @@ void evaluate()
             break;
 
             default:
-            postfix[j]=symb;
-            j++;
-            break;
+                postfix[j]=symb;
+                j++;
         }
     }
-
     while(top>0)
     {
         temp=pop();
@@ -105,11 +105,12 @@ void evaluate()
     postfix[j]='\0';
 }
 
-void main()
+
+int main()
 {
-    printf("Enter the infix exxpression:\n");
+    printf("\nEnter the valid infix expression:");
     scanf("%s",infix);
     evaluate();
-    printf("the entered postfix expression is: %s\n",infix);
-    printf("The postfix expresssion is: %s",postfix);
+    printf("\nThe entered infix expression is %s",infix);
+    printf("\nThe postfix expression is:%s",postfix);
 }

@@ -1,15 +1,13 @@
 #include<stdio.h>
-
 void tower(int n,char beg,char aux,char end)
 {
     if(n==0)
     {
-        printf("ilegal,please try non zero values");
+        printf("\nillegal,try with non zero numbers");
     }
-
     else if(n==1)
     {
-        printf("Move disk from %c to %c\n",beg,end);
+        printf("\nMove from disk %c to %c",beg,end);
     }
 
     else
@@ -23,8 +21,8 @@ void tower(int n,char beg,char aux,char end)
 int main()
 {
     int n;
-    printf("Enter the number of disks:\n");
+    printf("\nEnter the number of disks:");
     scanf("%d",&n);
-    printf("The tower of hanoi for %d has following steps:\n",n);
+    printf("\ntower of hanoi for %d has following steps",n);
     tower(n,'a','b','c');
 }
