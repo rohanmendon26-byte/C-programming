@@ -1,4 +1,4 @@
-#include<Stdio.h>
+#include<stdio.h>
 #include<stdlib.h>
 #define MAX 3
 int s[MAX];
@@ -9,9 +9,10 @@ void push()
     int item;
     if(top==MAX-1)
     {
-        printf("\nstack overflow\n");
+        printf("\nStack overflow");
+        return;
     }
-    printf("\nEnter the item:\n");
+    printf("\nEnter the item:");
     scanf("%d",&item);
     top++;
     s[top]=item;
@@ -22,11 +23,12 @@ void pop()
     int item;
     if(top==-1)
     {
-        printf("\nstack underflow\n");
+        printf("\nStack underflow");
+        return;
     }
     item=s[top];
     top--;
-    printf("\nItem deleted is %d\n",item);
+    printf("\nThe item deleted is %d",item);
 }
 
 void display()
@@ -34,30 +36,31 @@ void display()
     int item,i;
     if(top==-1)
     {
-        printf("\nstack underflow\n");
+        printf("\nStack underflow");
+        return;
     }
-    printf("\nstack contents are\n");
-    for(i=top;i>=0;i--)
+    printf("\nstack contents are:");
+    for(i=top;i>=0;i--)\
     {
-        printf("|%d|\t",s[i]);
+        printf("%d\t",s[i]);
     }
     printf("\n");
 }
 
-
 void pallindrome()
 {
-    int item,flag=1,i;
+    int i,item,flag=1;
     if(top==-1)
     {
-        printf("\nstack underflow\n");
+        printf("\nStack underflow");
+        return;
     }
-    printf("\nstack contents are\n");
+    printf("\nstack contents are:");
     for(i=top;i>=0;i--)
-        printf("|%d|\t",s[i]);
-    printf("\nstack contents in reverse order are:\n");
+       printf("%d\t",s[i]);
+    printf("\nStack in reverse order:");
     for(i=0;i<=top;i++)
-        printf("|%d|\n",s[i]);
+        printf("%d\n",s[i]);
     for(i=0;i<=top/2;i++)
     {
         if(s[i]!=s[top-i])
@@ -66,25 +69,25 @@ void pallindrome()
             break;
         }
     }
-    if(flag==1)
+    if(flag==0)
     {
-        printf("Stack contents aare pallindrome\n");
+        printf("\nstack contents are not pallindrome:");
     }
     else
     {
-        printf("stack contents are not pallindrome\n");
+        printf("\nstack contents are pallindrome");
     }
 }
 
-int main()
+void main()
 {
-    int choice;
+    int ch,i;
     while(1)
     {
-        printf("1.PUSH\n2.POP\n3.DISPLAY\n4.PALLINDROME\n5.EXIT\n");
-        printf("Enter your choice\n");
-        scanf("%d",&choice);
-        switch(choice)
+        printf("\n1.PUSH\n2.POP\n3.DISPLAY\n4.Pallindrome\n5.EXIT");
+        printf("\nEnter your choice:");
+        scanf("%d",&ch);
+        switch(ch)
         {
             case 1:
                push();
@@ -95,16 +98,15 @@ int main()
                break;
 
             case 3:
-               display();
-               break;
+                display();
+                break;
 
             case 4:
-               pallindrome();
-               break;
+                pallindrome();
+                break;
 
             case 5:
-               exit(0);
-
+                exit(0);
         }
     }
 }

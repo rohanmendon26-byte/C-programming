@@ -2,7 +2,7 @@
 #include<stdlib.h>
 
 int a[50][50],n,visited[50];
-int q[20],rear=-1,front=-1;
+int q[20],front=-1,rear=-1;
 int s[20],top=-1,count=0;
 
 void bfs(int v)
@@ -32,18 +32,18 @@ void dfs(int v)
     s[++top]=v;
     for(i=1;i<=n;i++)
     {
-        if((a[v][i]==1)&&visited[i]==0)
-        {
-            printf("%d",i);
-            dfs(i);
-        }
+    if((a[v][i]==1)&&visited[i]==0)
+    {
+        printf("%d",i);
+        dfs(i);
     }
 }
+}
 
-int main()
+void main()
 {
-    int start,ch,i,j;
-    printf("\nEnter the number of vertices in graph:");
+    int ch,start,i,j;
+    printf("\nEnter the numbervof vertices:");
     scanf("%d",&n);
     printf("\nEnter the adjacency matrix:");
     for(i=1;i<=n;i++)
@@ -55,48 +55,41 @@ int main()
     }
     printf("\nEnter the starting vertex:");
     scanf("%d",&start);
-
     while(1)
     {
-        printf("\n1.BFS->print all nodes reachable from starting vertex");
-        printf("\n2.DFS->print all nodes reachable from starting vertex");
-        printf("\n3.Exit");
+        printf("\n1.BFS-->nodes reachable from a given starting node");
+        printf("\n2.BFS-->nodes reachable from a given starting node");
+        printf("\nexit");
         printf("\nEnter your choice:");
         scanf("%d",&ch);
         switch(ch)
         {
             case 1:
-               printf("\nNodes reachable from starting vertex %d are:",start);
+               printf("\nNodes reachable from starting vertex %d:",start);
                for(i=1;i<=n;i++)
-                   visited[i]==0;
+                  visited[i]=0;
                 bfs(start);
                 for(i=1;i<=n;i++)
                 {
                     if(visited[i]==0)
-                    {
-                        printf("\nThe vertex that is not reachable is %d",i);
-                    }
+                       printf("\nThe vertex that is not reachable is %d",i);
                 }
                 break;
 
             case 2:
-               printf("\nNodes reachable from starting vertex %d are:",start);
+               printf("\nNodes reachable from starting vertex %d:",start);
                for(i=1;i<=n;i++)
-                   visited[i]==0;
+                  visited[i]=0;
                 dfs(start);
                 for(i=1;i<=n;i++)
                 {
                     if(visited[i]==0)
-                    {
-                        printf("\nThe vertex that is not reachable is %d",i);
-                    }
+                       printf("\nThe vertex that is not reachable is %d",i);
                 }
                 break;
 
-                case 3:
-                   exit(0);
-
-
+            case 3:
+               exit(0);
         }
     }
 }

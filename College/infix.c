@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
-int top=-1;
+
 char infix[30],postfix[30],stack[30];
+int top=-1;
 
 void push(char item)
 {
@@ -23,22 +24,22 @@ int prec(char symb)
     switch(symb)
     {
         case '#':
-            p=-1;
-            break;
+           p=-1;
+           break;
 
         case '(':
         case ')':
-            p=0;
-            break;
+           p=0;
+           break;
 
         case '+':
         case '-':
-            p=1;
-            break;
+           p=1;
+           break;
 
         case '*':
-        case '%':
         case '/':
+        case '%':
             p=2;
             break;
 
@@ -49,6 +50,7 @@ int prec(char symb)
     }
     return p;
 }
+
 
 void evaluate()
 {
@@ -61,19 +63,18 @@ void evaluate()
         switch(symb)
         {
             case '(':
-                push(symb);
-                break;
-            
+               push(symb);
+               break;
+
             case ')':
                 temp=pop();
-            
-            while(temp!='(')
-            {
-                postfix[j]=temp;
-                j++;
-                temp=pop();
-            }
-            break;
+                while(temp!='(')
+                {
+                    postfix[j]=temp;
+                    j++;
+                    temp=pop();
+                }
+                break;
 
             case '+':
             case '-':
@@ -82,18 +83,18 @@ void evaluate()
             case '%':
             case '^':
             case '$':
-            while(prec(stack[top])>=prec(symb))
-            {
-                temp=pop();
-                postfix[j]=temp;
-                j++;
-            }
-            push(symb);
-            break;
+                while(prec(stack[top])>=prec(symb))
+                {
+                    temp=pop();
+                    postfix[j]=temp;
+                    j++;
+                }
+                push(symb);
+                break;
 
             default:
-                postfix[j]=symb;
-                j++;
+               postfix[j]=symb;
+               j++;
         }
     }
     while(top>0)
@@ -105,12 +106,11 @@ void evaluate()
     postfix[j]='\0';
 }
 
-
 int main()
 {
     printf("\nEnter the valid infix expression:");
     scanf("%s",infix);
     evaluate();
-    printf("\nThe entered infix expression is %s",infix);
-    printf("\nThe postfix expression is:%s",postfix);
+    printf("\nThe entered infix expression is %s:",infix);
+    printf("\nThe corresponding postfix expression is %s:",postfix);
 }

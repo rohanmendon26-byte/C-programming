@@ -1,21 +1,22 @@
 #include<stdio.h>
+
 char STR[100],PAT[100],REP[100],ans[100];
 
- void readstring()
- {
-    printf("\nEnter the main string:\n");
+void readstring()
+{
+    printf("\nEnter the main string:");
     scanf(" %[^\n]",STR);
     getchar();
-    printf("\nEnter the Pattern string:\n");
+    printf("\nEnter the pattern string:");
     scanf(" %[^\n]",PAT);
     getchar();
-    printf("\nEnter the replace string:\n");
+    printf("\nEnter the replace string:");
     scanf(" %[^\n]",REP);
     getchar();
- }
+}
 
- void searchreplacestring()
- {
+void searchreplacestring()
+{
     int i,j,c,m,k,flag=0;
     i=j=m=c=0;
     while(STR[c]!='\0')
@@ -27,10 +28,10 @@ char STR[100],PAT[100],REP[100],ans[100];
             if(PAT[i]=='\0')
             {
                 flag=1;
-                for(k=0;REP[k]!='\0';k++,j++)
-                   ans[j]=REP[k];
-                c=m;
+                for(int k=0;REP[k]!='\0';k++,j++)
+                    ans[j]=REP[k];
                 i=0;
+                c=m;
             }
         }
         else
@@ -44,17 +45,17 @@ char STR[100],PAT[100],REP[100],ans[100];
     }
     if(flag==0)
     {
-        printf("\nPattern not found\n");
+        printf("\nPattern doesn't exist");
     }
     else
     {
         ans[j]='\0';
-        printf("\nThe resultant string is %s:\n",ans);
+        printf("\nThe resultant string is %s:",ans);
     }
- }
+}
 
- int main()
- {
+void main()
+{
     readstring();
     searchreplacestring();
- }
+}

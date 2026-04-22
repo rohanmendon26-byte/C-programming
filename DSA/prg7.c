@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+ 
 
 struct node
 {
@@ -19,10 +20,10 @@ NODE create()
     snode=(struct node *)malloc(sizeof(struct node));
     if(snode==NULL)
     {
-        printf("\nMemory is not available:");
+        printf("\nMemory is unavailable");
         exit(0);
     }
-    printf("\nEnter usn,name,branch,phone,sem:");
+    printf("\nEnter your USN,Name,Branch,sem and phone:");
     scanf("%s %s %s %d %ld",snode->usn,snode->name,snode->branch,&snode->sem,&snode->phone);
     snode->link=NULL;
     count++;
@@ -46,22 +47,16 @@ NODE deletefront()
     NODE temp;
     if(start==NULL)
     {
-        printf("\nlinked list is empty:");
+        printf("\nLinked list is empty");
         return NULL;
     }
     if(start->link==NULL)
     {
-        printf("\nThe student node with usn %s is deleted:",start->usn);
-        free(start);
+        printf("\nThe student with usn %s is deleted",start->usn);
         count--;
+        free(start);
         return NULL;
     }
-    temp=start;
-    start=start->link;
-    printf("\nThe student with node with usn %s is deleted",temp->usn);
-    free(temp);
-    count--;
-    return start;
 }
 
 NODE insertend()
@@ -83,17 +78,18 @@ NODE insertend()
 
 NODE deleteend()
 {
-    NODE prev,cur;
+    NODE cur,prev;
     if(start==NULL)
     {
-        printf("\nlinked list is empty:");
+        printf("\nLinked list is empty");
         return NULL;
     }
+
     if(start->link==NULL)
     {
-        printf("\nThe student node with usn %s is deleted:",start->usn);
-        free(start);
+        printf("\nThe student with usn %s is deleted",start->usn);
         count--;
+        free(start);
         return NULL;
     }
     prev=NULL;
@@ -103,7 +99,7 @@ NODE deleteend()
         prev=cur;
         cur=cur->link;
     }
-    printf("\nThe student node with usn %s is deleted",cur->usn);
+    printf("\nThe student with usn %s is deleted",cur->usn);
     free(cur);
     count--;
     prev->link=NULL;
@@ -116,71 +112,65 @@ void display()
     int num=1;
     if(start==NULL)
     {
-        printf("\nNo contents to display");
+        printf("\nNo item to display");
         return;
     }
-    printf("\ncontents of sll are:");
     cur=start;
     while(cur!=NULL)
     {
-        printf("\n||%d||usn:%s|Name:%s|branch:%s|sem:%d|Phone:%ld|",num,cur->usn,cur->name,cur->branch,cur->sem,cur->phone);
+        printf("\n||%d||%s|%s|%s|%d|%ld|",num,cur->usn,cur->name,cur->branch,cur->sem,cur->phone);
         num++;
         cur=cur->link;
     }
+    printf("\nTotal number of students:%d",count);
 }
 
 void stackdemo()
 {
-    int ch;
+    int ch,n;
     while(1)
     {
-        printf("\nStack demo:");
         printf("\n1.PUSH\n2.POP\n3.DISPLAY\n4.EXIT");
-        printf("\nEnter your choice:");
+        printf("\nEnter the choice:");
         scanf("%d",&ch);
         switch(ch)
         {
             case 1:
-                start=insertfront();
-                break;
+               start=insertfront();
+               break;
 
             case 2:
-                start=deletefront();
-                break;
+               start=deletefront();
+               break;
 
             case 3:
-                display();
-                break;
+               display();
+               break;
 
             case 4:
-                return;
+                exit(0);
         }
     }
-    return;
 }
 
-
-void main()
+int main()
 {
     int ch,i,n;
     while(1)
     {
         printf("\n~~~MENU~~~");
-        printf("\n1.create a sll of student nodes\n2.insert at end\n3.delete at end\n4.stack demo for insertion and deletion at front\n5.display\n6.exit");
+        printf("\n1.create a sll\n2.insertend\n3.deleteend\n4.stackoperation\n5.display\n6.exit");
         printf("\nEnter your choice:");
         scanf("%d",&ch);
         switch(ch)
         {
             case 1:
-               printf("\nEnter the number of student nodes:");
-               scanf("%d",&n);
-               for(i=1;i<=n;i++)
-               {
-                 start=insertfront();
-               }
+            printf("\nEnter the  number of students:");
+            scanf("%d",&n);
+            for(i=1;i<=n;i++)
+               start=insertfront();
                break;
-
-
+               
             case 2:
                start=insertend();
                break;
@@ -196,9 +186,9 @@ void main()
             case 5:
                display();
                break;
-
+            
             case 6:
                exit(0);
         }
-}
+    }
 }
