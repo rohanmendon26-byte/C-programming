@@ -3,6 +3,7 @@
 
 void warshall(int n,int r[MAX][MAX]){
     int i,j,k;
+
     for(k=1;k<=n;k++){
         for(i=1;i<=n;i++){
             for(j=1;j<=n;j++){
@@ -11,11 +12,13 @@ void warshall(int n,int r[MAX][MAX]){
         }
     }
 
-    printf("Transitive closure matrix is:\n");
+    printf("transitive closure matrix is:\n");
+
     for(i=1;i<=n;i++){
         printf("\t%d",i);
     }
-    printf("\n\t-----------\n");
+    printf("\n");
+
     for(i=1;i<=n;i++){
         printf("%d\t",i);
         for(j=1;j<=n;j++){
@@ -25,19 +28,19 @@ void warshall(int n,int r[MAX][MAX]){
     }
 }
 
-int main(){
-    int r[MAX][MAX];
-    int i,j,n;
+int main()
+{
+    int i,j,n,r[MAX][MAX];
+
     printf("Enter the number of vertices:\n");
     scanf("%d",&n);
 
-    printf("Enter the adjacency matrix(1 for edge,0 for no edge):\n");
+    printf("Enter the weight matrix:\n");
     for(i=1;i<=n;i++){
         for(j=1;j<=n;j++){
             scanf("%d",&r[i][j]);
         }
     }
-
     warshall(n,r);
-    return 0;
+    
 }

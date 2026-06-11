@@ -8,51 +8,51 @@ void swap(int *a,int *b){
     *b=temp;
 }
 
-int partition(int arr[],int low,int high){
-    int pivot=arr[low];
+int partition(int a[],int low,int high){
     int i=low;
     int j=high;
+    int pivot=a[low];
+
     while(i<j){
-        while(arr[i]<=pivot && i<=high-1)
-              i++;
-        while(arr[j]>pivot && j>=low+1)
-              j--;
-    
+        while(a[i]<=pivot && i<=high-1)
+             i++;
+        while(a[j]>pivot && j>=low+1)
+             j--;
         if(i<j)
-            swap(&arr[i],&arr[j]);
+           swap(&a[i],&a[j]);
     }
-    swap(&arr[low],&arr[j]);
+    swap(&a[low],&a[j]);
     return j;
 }
 
-void quicksort(int arr[],int low,int high){
+void quicksort(int a[],int low,int high){
     if(low<high){
-        int pivotIndex=partition(arr,low,high);
-        quicksort(arr,low,pivotIndex-1);
-        quicksort(arr,pivotIndex+1,high);
+        int pivotIndex=partition(a,low,high);
+        quicksort(a,low,pivotIndex-1);
+        quicksort(a,pivotIndex+1,high);
     }
 }
 
 
-void main(){
-    int i,n;
+int main()
+{
+    srand(time(NULL));
     clock_t start,end;
-    printf("Enter the array size:");
+    int i,n;
+    printf("Enter the array size:\n");
     scanf("%d",&n);
     int a[n];
-    srand(time(NULL));
-    for(i=0;i<n;i++){
-        a[i]=rand()/1000;
-    }
+    for(i=0;i<n;i++)
+        a[i]=rand()%1000;
+
     start=clock();
     quicksort(a,0,n-1);
     end=clock();
-    printf("\n");
+
     double time_taken=((double)(end-start))/CLOCKS_PER_SEC;
-    printf("Time taken:%f\n",time_taken);
+    printf("Time taken=%d\n",time_taken);
 
     for(i=0;i<10;i++){
         printf("%d\t",a[i]);
     }
-
 }
